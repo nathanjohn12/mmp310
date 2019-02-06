@@ -5,19 +5,8 @@
 	by nathan
 */
 // global variables
-var orangeX = 200;
-var orangeY = 200;
-var orangeSize = 200;
-var orangeEyeSize = orangeSize / 10;
-
-var appleX = 600;
-var appleY = 200;
-var appleSize = 200;
-var appleEyeSize = appleSize / 10;
 
 var story = "Once upon a time, there was an basketball and a soccerball.";
-var storyX;
-var storyY;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -28,47 +17,49 @@ function setup() {
 }
 
 function draw() {
+    var personX = 200;
+    var personY = 200;
     background(50);
+
     // Draw a new head
-    drawBody(orangeX, orangeY, "#ffebba");
-    drawBody(1500, orangeY, "#c67400");
+    drawBody(personX, personY, "#ffebba");
+    drawBody(personX + 400, personY, "#c67400");
 }
 
 function drawBody(x, y, color) {
-  drawHead(x, y, color);
-  drawLegs(x, y + 50);
+    drawHead(x, y, color);
+    drawLegs(x, y + 50);
 }
 
 function drawHead(x, y, color) {
-  // left eye
-  var leftEye = x - 20;
-  // right eye
-  var rightEye = x + 20;
+    // left eye
+    var leftEye = x - 20;
+    // right eye
+    var rightEye = x + 20;
 
-  fill(color);
-  ellipse(x, y, 100); // head
-  stroke(10);
-  fill("black");
-  ellipse(leftEye, y, 10); // left eye
-  ellipse(rightEye, y, 10); // right eye
+    fill(color);
+    ellipse(x, y, 100); // head
+    stroke(10);
+    fill("black");
+    ellipse(leftEye, y, 10); // left eye
+    ellipse(rightEye, y, 10); // right eye
 }
 
 function drawLegs(x, y) {
-  fill("black");
-  stroke(10);
-  // Body
-  line(x, y, x, y + 250);
+    fill("black");
+    stroke(10);
+    // Body
+    line(x, y, x, y + 250);
 
-  // Left Arm
-  line(x - 100, y + 100, x, y + 50);
+    // Left Arm
+    line(x - 100, y + 100, x, y + 50);
 
-  // Right Arm
-  line(x + 100, y + 100, x, y + 50);
+    // Right Arm
+    line(x + 100, y + 100, x, y + 50);
 
-  // Left leg
-  line(x, y + 250, x + 100, y + 390);
+    // Left leg
+    line(x, y + 250, x + 100, y + 390);
 
-  // Left leg
-  line(x, y + 250, x - 100, y + 390);
-
+    // Left leg
+    line(x, y + 250, x - 100, y + 390);
 }

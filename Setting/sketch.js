@@ -29,17 +29,19 @@ function setup() {
 
 function draw() {
     var fredX = window.windowWidth / 2 - 300;
-    var bobbyX = window.windowWidth / 2 + 300;
-
     var fredY = 200;
+    var fredWidth = 200; 
+    
     var bobbyY = 200;
+    var bobbyX = window.windowWidth / 2 + 300;
+    var bobbyWidth = 200;
 
     background(bgColor);
 
     // Fred
-    drawBody(fredX, fredY, "#ffebba");
+    drawBody(fredX, fredY, fredWidth, "#ffebba");
     // Bobby
-    drawBody(bobbyX, bobbyY, "#c67400");
+    drawBody(bobbyX, bobbyY, bobbyWidth, "#c67400");
 
     if (currentSetting == "day") {
   		fill('gold');
@@ -49,45 +51,49 @@ function draw() {
   		// to change the scene
   		if (mouseIsPressed) {
   			currentSetting = "evening";
-  			bgColor = "mediumslateblue";
+  			bgColor = "#FF8140";
   		}
 
     	} else if (currentSetting == "evening") {
     		fill('orange');
     		noStroke();
     		ellipse(sunX, sunY + 100, sunSize);
-
     		// click on a character to eat it
     		if (mouseIsPressed) {
     			var fredDistance = dist(mouseX, mouseY, fredX, fredY);
-          console.log(`${fredDistance} ${fredDistance/2}`)
-    			if (fredDistance <= (fredDistance / 2)) {
+    			if (fredDistance < fredWidth / 2) {
     				personSelected = "Fred";
     				currentSetting = "night";
     				bgColor = "darkblue";
     			}
+                var bobbyDistance = dist(mouseX, mouseY, bobbyX, bobbyY);
+                if (bobbyDistance < bobbyWidth / 2) {
+                    personSelected = "Bobby";
+                    currentSetting = "night";
+                    bgColor = "darkblue";
+                }
     		}
 
     	} else if (currentSetting == "night") {
-    		fill('crimson');
+    		fill('#D8D8D8');
     		noStroke();
     		ellipse(sunX, sunY + 200, sunSize);
     }
 }
 
-function drawBody(x, y, color) {
-    drawHead(x, y, color);
+function drawBody(x, y, width, color) {
+    drawHead(x, y, width, color);
     drawLegs(x, y + 50);
 }
 
-function drawHead(x, y, color) {
-    // left eye
+function drawHead(x, y, width, color) {
+    // left eye  
     var leftEye = x - 20;
     // right eye
     var rightEye = x + 20;
 
     fill(color);
-    ellipse(x, y, 100); // head
+    ellipse(x, y, width); // head
     stroke(10);
     fill("black");
     ellipse(leftEye, y, 10); // left eye

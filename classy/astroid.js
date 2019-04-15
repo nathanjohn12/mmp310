@@ -2,9 +2,11 @@
     asteroid class
 */
 
-class Asteroid {
+class Asteroid extends Entity {
     constructor() {
-        this.x = random(width);
+        super(random(width), 100);
+        this.speed.x = random(-1,1);
+        this.speed.y =
         this.y = -100;
         this.size = Math.random() * (150 - 50) + 50;
         this.speed = {
@@ -12,27 +14,19 @@ class Asteroid {
             y: random(7)
         };
     }
+
     
     display() {
         fill(0);
         stroke(211,211,211);
         ellipse(this.x, this.y, this.size);
     }
+
     
     update() {
         this.x += this.speed.x * 3;
         this.y += this.speed.y * 3;
     }
     
-    collide() {
-        var d = dist(this.x, this.y, spaceship.x, spaceship.y);
-        if (d < this.size / 2){
-            textSize(50); 
-            textAlign(CENTER, CENTER);
-            fill('white'); 
-            text("HAHA! You Died", width/2, height/2);
-            noLoop();
-            
-        }
-    }
+    
 }

@@ -7,6 +7,7 @@ class Person {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.alive = true;
     }
     update(x, y) {
         this.x = x;
@@ -14,14 +15,14 @@ class Person {
         this.display();
     }
     display() {
-        this.drawBody(this.x, this.y, 100, this.color)
+        if (this.alive) {
+            this.drawBody(this.x, this.y, 100, this.color);
+        }
     }
-x
     drawBody(x, y, width, color) {
         this.drawHead(x, y, width, color);
         this.drawLegs(x, y + 50);
     }
-
     drawHead(x, y, width, color) {
         // left eye
         var leftEye = x - 20;
@@ -35,7 +36,6 @@ x
         ellipse(leftEye, y, 10); // left eye
         ellipse(rightEye, y, 10); // right eye
     }
-
     drawLegs(x, y) {
         fill("black");
         stroke(10);

@@ -7,7 +7,8 @@
 // global variables
 
 var story = "Once upon a time, there were two friends named Bobby and Fred.Click on one to see how they met.";
-var chapter = "day";
+
+var chapter = 1;
 
 var itemClicked = "blackGuy";
 var bgColor = "lightblue";
@@ -32,6 +33,7 @@ var bobbyWidth = 200;
 var bobby = null;
 var fred = null;
 
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     textSize(20);
@@ -44,15 +46,11 @@ function setup() {
 
 function draw() {
     background(bgColor);
-    if (whoToDestroy !== 'fred') {
-        fred.display()
-    }
-    if (whoToDestroy !== 'bob') {
-        bobby.display();
-    }
+    fred.display();
+    bobby.display();
     // Sun
     drawSun();
-    nextChapter();
+    drawText(story);
 }
 
 function drawSun() {
@@ -62,59 +60,181 @@ function drawSun() {
 }
 
 function mouseClicked() {
-    if (chapter === "day") {
-        fill('gold');
-        noStroke();
-        ellipse(sunX, sunY, sunSize);
 
-        chapter = "evening";
-        bgColor = "#FF8140";
-
-    } else if (chapter === "evening") {
-        fill('gold');
-        noStroke();
-        ellipse(sunX, sunY + 100, sunSize);
-        // click on a character to eat it
-        var fredDistance = dist(mouseX, mouseY, fredX, fredY);
-        if (fredDistance < fredWidth / 2) {
-            whoToDestroy = "bob";
-            chapter = "night";
-            bgColor = "darkblue";
-        }
-        var bobbyDistance = dist(mouseX, mouseY, bobbyX, bobbyY);
-        if (bobbyDistance < bobbyWidth / 2) {
-            whoToDestroy = "fred";
-            chapter = "night";
-            bgColor = "darkblue";
-        }
-    } else if (chapter === "night") {
-        fill('#D8D8D8');
-        noStroke();
-        ellipse(sunX, sunY + 200, sunSize);
-        chapter = 'reset';
-    } else {
-        chapter = 'day';
-        whoToDestroy = '';
-        bgColor = "lightblue";
-        ellipse(sunX, sunY, sunSize);
+    /* who was clicked on? */
+    var who = '';
+    var fredDistance = dist(mouseX, mouseY, fred.x, fred.y);
+    if (fredDistance < fredWidth / 2) {
+        who = 'fred';
     }
-    return false;
+
+    var bobbyDistance = dist(mouseX, mouseY, bobby.x, bobby.y);
+    if (bobbyDistance < bobbyWidth / 2) {
+        who = 'bob';
+    }
+
+    doStory(who);
 }
 
+function doStory(who) {
 
-
-function nextChapter() {
-    if (chapter === 'day') {
-        drawText('Once upon a time, there were two best friends named Fred and Bob.Click on one to see how they met.');
-    } else if (chapter === 'evening') {
-        drawText('One day Fred and Bob get in an argument about who had better programming skills and they both said some hurtful things.Click on one to see how it ends.');
-    } else if (chapter === 'night') {
-        drawText('Ooops, you killed ' + whoToDestroy);
+    switch (chapter) {
+        case 1:
+            if (who == 'bob') {
+                 setupBobbyChapterFive();
+            } else if (who == 'fred') {
+                setupFredChapterTwo();
+            }
+            break;
+        case 2:
+            setupFredChapterThree();
+            break;
+        case 3:
+            setupFredChapterFour();
+            break;
+        case 4:
+            setupBobbyChapterFive();
+            break;
+        case 5:
+            setupBobbyChapterSix();
+            break;
+        case 6:
+            setupBobbyChapterSeven();
+            break;
+        case 7:
+             setupBobbyChapterEight();
+            break;
+        case 8:
+            setupBobbyFredChapterNine();
+            break;
+        case 9:
+             setupFredChapterTen();
+            break;
+        case 10:
+            setupFredChapterFour();
+        case 11:
+            setupBobFredChapterEleven(who);
+        break;
     }
+    //    chapter = chapter + 1;
+}
+
+function setupFredChapterTwo() {
+    bgColor = "#FF8140";
+    bobby.alive = false;
+    fred.x = width / 2;
+    story = "Fred is an MMP major at BMCC. He is a kid from Brooklyn. He is an average kid from Brooklyn, He didn't expect to like the idea of web design and graphic design. ";
+    chapter = 2;
+}
+
+function setupFredChapterThree() {
+    bgColor = "#FF8140";
+    bobby.alive = false;
+    fred.x = width / 2;
+    story = "Fred didn't really like the aspect of college because he didn't know anyone. So one day he entered MMP 100, and he sat down and next to him was a Bobby. ";
+    chapter = 3;
+}
+
+function setupFredChapterFour() {
+    console.log('chapter 4');
+    sunY = 200;
+    bgColor = 'purple';
+    fred.x += 100;
+    chapter = 3;
+    fred.alive = true;
+    bobby.alive = true;
+    story = "During that class, they were discussing the different programs that they both use. The both used brackets and Atom to write their code. "
+    chapter = 9;
+}
+
+function setupBobbyChapterFive() {
+    console.log('chapter 5');
+    sunY = 200;
+    bgColor = 'blue';
+    bobby.x -= 100;
+    chapter = 4;
+    fred.alive = false;
+    story = "This is Bobby. Like his friend Fred, He is also from Brooklyn.But Boddy is from a different part of Brooklyn."
+    chapter = 5;
+}
+
+function setupBobbyChapterSix() {
+    console.log('chapter 6');
+    sunY = 200;
+    bgColor = 'green';
+    bobby.x -= 100;
+    chapter = 5;
+    fred.alive = false;
+    story = "This is Bobby. Recently transfered from another college and he also wanted to do something else."
+    chapter = 6;
+}
+
+function setupBobbyChapterSeven() {
+    console.log('chapter 7');
+    sunY = 200;
+    bgColor = 'orange';
+    bobby.x -= 100;
+    chapter = 7;
+    fred.alive = false;
+    story = "Bobby had a class with Fred before but he didn't know anyome like Fred, so when Fred sat down next to him, he decided to initiate the conversation."
+}
+
+function setupBobbyChapterEight() {
+    console.log('chapter 8');
+    sunY = 200;
+    bgColor = 'gray';
+    fred.x += 100;
+    chapter = 7;
+    fred.alive = true;
+    bobby.alive = true;
+    story = "As they were discussing which program was better, they got in a huge argument.  "
+    chapter = 8;
+}
+
+function setupBobbyFredChapterNine()
+{console.log('chapter 9');
+    sunY = 200;
+    sunX = 200;
+    bgColor = 'white';
+    fred.x +=300;
+    chapter = 8;
+    fred.alive = true;
+    bobby.alive = true;
+    story = "The argument got heated and they wanted to both kill eachother. You decide who dies."
+    chapter = 9;
+}
+
+function setupFredChapterTen()
+{console.log('chapter 10');
+    sunY = 200;
+    sunX = 300;
+    bgColor = 'white';
+    fred.x += 100;
+    chapter = 4;
+    fred.alive = true;
+    bobby.alive = true;
+    story = "The argument got heated and they wanted to both kill eachother. You decide who dies."
+    chapter = 11;
+}
+
+function setupBobFredChapterEleven(who){
+    console.log(who);
+    if (who == 'bob') {
+        fred.alive = false;
+        story = "Fred died.";
+    }
+ 
+    if (who == 'fred') {
+        bobby.alive = false;
+        story = "Bobby died.";
+    }
+    
+    bgColor = 'green';
+    
 }
 
 function drawText(words) {
     fill(0);
     textAlign(CENTER, CENTER);
-    text(words, width / 4, height - 95, width / 2);
+    text(words, width / 4, height - 75, width / 2);
 }
